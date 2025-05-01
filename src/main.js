@@ -3,5 +3,5 @@ import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.82/build/
 
 const canvas = document.getElementById('canvas3d');
 const app = new Application(canvas);
-app.load('https://prod.spline.design/9D7xDb5kVU0oEr4G/scene.splinecode');
+app.load('/scene.splinecode');
 
