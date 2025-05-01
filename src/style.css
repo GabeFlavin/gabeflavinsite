@@ -1,5 +1,11 @@
 
-
+@font-face{
+  font-family: 'Urbanist-SemiBold';
+  src: url('/fonts/urbanist/Urbanist-SemiBold.ttf')format('truetype');
+font-weight:normal;
+font-style:normal;
+font-display:swap;
+}
 
 body{
   margin: 0;
@@ -12,7 +18,7 @@ body{
   height: 100vh;
   overflow: hidden;
   text-align: center;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Geneva, Tahoma, sans-serif;
+  font-family: 'Urbanist-SemiBold', 'Helvetica Neue', sans-serif, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
 }
 
@@ -31,13 +37,13 @@ body{
   bottom: 10%;
   left:  0;
   right: 0;
-  font-size: .85em;
+  font-size: .9em;
   letter-spacing: .15em;
   width: fit-content;
   margin: auto;
   background-color: rgba(18, 45, 42, 0.059);
   display: flex;
-  padding: .5em 1.4em;
+  padding: .5em 1.4em .4em 1.4em;
   justify-content: center;
   align-content: center;
   z-index: 10;
@@ -45,4 +51,5 @@ body{
   flex-direction: column;
   user-select: none;
   border-radius: 15px;
+  color: #000000a9
 }
