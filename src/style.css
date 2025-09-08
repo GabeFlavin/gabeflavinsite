@@ -10,13 +10,11 @@ font-display:swap;
 body{
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
+  background: #111;
   display: flex;
   align-content: start;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
   text-align: center;
   font-family: 'Urbanist-SemiBold', 'Helvetica Neue', sans-serif, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
@@ -30,6 +28,7 @@ body{
   top: 0;
   left: 0;
   z-index: 0;
+  cursor: pointer;
 }
 
 .overlay{
@@ -52,4 +51,100 @@ body{
   user-select: none;
   border-radius: 15px;
   color: #000000a9
+}
+
+.overlay-scan {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: auto;
+  color: #f0f0f0;
+}
+
+@media screen and (max-width: 480px) {
+  .overlay {
+    bottom: 2%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: .5em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-transform: rotate(90deg);
+    width: fit-content;
+    height: fit-content;
+    border-radius: 0;
+    background-color: rgba(18, 45, 42, 0);
+    z-backdrop-filter: blur(5px);
+  }
+}
+
+
+._root {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.image-nav{
+  padding: 1rem 0;
+  background: #111;
+  width: 100%;
+  font-size: .8rem;
+  letter-spacing: .1em;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  opacity: 1;
+  color: aqua;
+}
+
+.image-nav:hover{
+  opacity: 1;
+  transition: opacity .3s ease-in-out;
+  cursor: default;
+}
+
+.image-nav a{
+  color: #fff;
+  text-decoration: none;
+  padding: .7rem;
+}
+.image-nav a:hover{
+  color: chartreuse;
+}
+
+.image-nav a.active{
+  color: chartreuse;
+  font-weight: bold;
+}
+
+.image-con{
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  
+}
+
+.image-con img{
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-width: fit-content;
+  user-select: none;
 }
