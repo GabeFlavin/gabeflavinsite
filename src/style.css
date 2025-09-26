@@ -235,7 +235,6 @@ twist main
   justify-content: center;
   align-content: center;
   z-index: 10;
-  display: flex;
   flex-direction: column;
   user-select: none;
   border-radius: 15px;
@@ -266,6 +265,16 @@ a:hover{
   color: #000;
   transition: opacity .7s ease-out;
   cursor: pointer;
+}
+
+#con-nav{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  z-pointer-events: none;
 }
 
 #tl-corner, #tr-corner, #bl-corner, #br-corner{
@@ -394,7 +403,7 @@ Image Page Styles
   justify-content: center;
   align-items: flex-start;
   z-align-content: center;
-  
+  align-content: center;
 }
 
 .image-con img{
