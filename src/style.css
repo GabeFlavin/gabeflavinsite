@@ -23,183 +23,8 @@ body{
   text-transform: uppercase;
 }
 
-@view-transition {
-  navigation: auto;
-}
-
-/*
-::view-transition-group(root) {
-  animation-duration: .4s;
-  animation-timing-function: ease-out;
-}
-*/
-
-/* 
- 
- 
- Slide animation
- 
- 
- */
-.slide::view-transition-old(root) {
-    animation: slide-out-to-left 0.5s ease forwards;
-}
-
-.slide::view-transition-new(root) {
-    animation: slide-in-from-right 0.5s ease forwards;
-}
-
-@keyframes slide-out-to-left {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(100%); opacity: 0; }
-}
-
-@keyframes slide-in-from-right {
-    from { transform: translateX(-100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-/* 
- 
- 
- Slide animation reverse
- 
- 
- */
-.slide_rev::view-transition-old(root) {
-    animation: slide-out-to-bottom 0.5s ease forwards;
-}
-
-.slide_rev::view-transition-new(root) {
-    animation: slide-in-from-top 0.5s ease forwards;
-}
-
-@keyframes slide-out-to-bottom {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(100%); opacity: 0; }
-}
-
-@keyframes slide-in-from-top {
-    from { transform: translateY(-100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-/* 
-
-
-  --- Scale animation
-
-
-*/
-.scale::view-transition-old(root) {
-    animation: scale-out 0.5s ease forwards;
-}
-
-.scale::view-transition-new(root) {
-    animation: scale-in 0.5s ease forwards;
-}
-
-@keyframes scale-out {
-    from { transform: scale(1); opacity: 1; }
-    to { transform: scale(1.5); opacity: 0; }
-}
-
-@keyframes scale-in {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-/* 
-
-
-  --- Scale animation reverse
-
-
-*/
-.scale_rev::view-transition-old(root) {
-    animation: scale-out_rev 0.5s ease forwards;
-}
-
-.scale_rev::view-transition-new(root) {
-    animation: scale-in_rev 0.5s ease forwards;
-}
-
-@keyframes scale-out_rev {
-    from { transform: scale(1); opacity: 1; }
-    to { transform: scale(.5); opacity: 0; }
-}
-
-@keyframes scale-in_rev {
-    from { transform: scale(1.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-/* 
-
-
-Flip animation 
-
-
-*/
-.flip::view-transition-old(root) {
-    animation: flip-out 0.7s ease forwards;
-    transform-origin: left;
-}
-
-.flip::view-transition-new(root) {
-    animation: flip-in 0.7s ease forwards;
-    transform-origin: left;
-}
-
-/* 
-
-
-Fade animation 
-
-
-*/
-.fade::view-transition-old(root) {
-    animation: fade-out 0.5s ease forwards;
-}
-
-.fade::view-transition-new(root) {
-    animation: fade-in 0.5s ease forwards;
-}
-
-@keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-@keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes flip-out {
-    from { transform: rotateY(0); opacity: 1; }
-    to { transform: rotateY(90deg); opacity: 0; }
-}
-
-@keyframes flip-in {
-    from { transform: rotateY(-90deg); opacity: 0; }
-    to { transform: rotateY(0); opacity: 1; }
-}
 
 @media screen and (max-width: 480px) {
-  .overlay {
-    bottom: 2%;
-    left: 0;
-    right: 0;
-    margin: auto;
-    padding: .5em;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-transform: rotate(90deg);
-    width: fit-content;
-    height: fit-content;
-    border-radius: 0;
-    background-color: rgba(18, 45, 42, 0);
-    z-backdrop-filter: blur(5px);
-  }
 }
 
 
@@ -220,29 +45,7 @@ twist main
 
 */
 
-.overlay{
-  position: absolute;
-  bottom: 10%;
-  left:  0;
-  right: 0;
-  font-size: .9em;
-  letter-spacing: .15em;
-  width: fit-content;
-  margin: auto;
-  background-color: rgba(18, 45, 42, 0.059);
-  display: flex;
-  padding: .5em 1.4em .4em 1.4em;
-  justify-content: center;
-  align-content: center;
-  z-index: 10;
-  flex-direction: column;
-  user-select: none;
-  border-radius: 15px;
-  color: #000000a9
-}
-
-
-#canvas3d {
+canvas {
   display: flex;
   width: 100vw;
   height: 100vh; 
@@ -270,35 +73,54 @@ a:hover{
 #con-nav{
   position: fixed;
   width: 100%;
-  height: 100%;
-  top: 0;
+  top: .5rem;
   left: 0;
   z-index: 3;
-  z-pointer-events: none;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
-#tl-corner, #tr-corner, #bl-corner, #br-corner{
+#con-nav a{
+  background-color: #ffffffa1;
+  padding: 1rem 2rem;
+  transition: background-color 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+#con-nav a:hover{
+  background-color: #ffffff;
+}
+
+#con-floater{
   position: absolute;
-  height: 20px;
-  z-index: 2;
+  top: 50%;
+  left: 5%;
+  z-index: 8;
+  pointer-events: none;
+  user-select: none;
+  color: #000000a9;
+  font-size: 2rem;
+  font-weight: bold;
+  opacity: 1;
+  text-transform: uppercase;
 }
 
-#tl-corner{
-  top: 10px;
-  left: 10px;
+#con-floater.home{
+  top: auto;
+  bottom: 5%;
+  right: 0%;
+  left: 0%;
+  margin: auto;
+  font-size: 1.2rem;
+  display: flex;
+  width: fit-content;
+  z-index: 4;
+  pointer-events: none;
+  user-select: none;
+  color: #000000a9;
+  padding: 1rem;
+  
+  background-color: #00000016;
 }
-#tr-corner{
-  top: 10px;
-  right: 10px;
-}
-#bl-corner{
-  bottom: 10px;
-  left: 10px;
-}
-#br-corner{
-  bottom: 10px;
-  right: 10px;
-} 
 
 #con-full{
   position: relative;
@@ -309,7 +131,7 @@ a:hover{
   align-items: center;
   align-content: center;
   z-index: 1;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 
@@ -318,7 +140,7 @@ a:hover{
 }
 
 .services{
-  background: #CEDCFF;
+  background: #000000;
 }
 
 .contact{
@@ -333,7 +155,6 @@ h1{
   display: inline;
 }
 
-
 .content{
   color: #032a2c;
   font-size: 1.2rem;
@@ -344,7 +165,6 @@ h1{
   font-weight: 300;
   max-width: 700px;
 }
-
 
 
 
@@ -402,7 +222,6 @@ Image Page Styles
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  z-align-content: center;
   align-content: center;
 }
 
@@ -412,4 +231,166 @@ Image Page Styles
   object-fit: contain;
   max-width: fit-content;
   user-select: none;
+}
+
+
+
+
+@view-transition {
+  navigation: auto;
+}
+
+/*
+::view-transition-group(root) {
+  animation-duration: .4s;
+  animation-timing-function: ease-out;
+}
+*/
+
+/* 
+ 
+ 
+ Slide animation
+ 
+ 
+ */
+.slide::view-transition-old(root) {
+    animation: slide-out-to-left 0.5s ease-out forwards;
+}
+
+.slide::view-transition-new(root) {
+    animation: slide-in-from-right 0.5s ease-out forwards;
+}
+
+@keyframes slide-out-to-left {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 1; }
+}
+
+@keyframes slide-in-from-right {
+    from { transform: translateX(-100%); opacity: 1; }
+    to { transform: translateX(0); opacity: 1; }
+}
+/* 
+ 
+ 
+ Slide animation reverse
+ 
+ 
+ */
+.slide_rev::view-transition-old(root) {
+    animation: slide-out-to-bottom 0.5s ease-out forwards;
+}
+
+.slide_rev::view-transition-new(root) {
+    animation: slide-in-from-top 0.5s ease-out forwards;
+}
+
+@keyframes slide-out-to-bottom {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(100%); opacity: 1; }
+}
+
+@keyframes slide-in-from-top {
+    from { transform: translateY(-100%); opacity: 1; }
+    to { transform: translateY(0); opacity: 1; }
+}
+/* 
+
+
+  --- Scale animation
+
+
+*/
+.scale::view-transition-old(root) {
+    animation: scale-out 0.5s ease-out forwards;
+}
+
+.scale::view-transition-new(root) {
+    animation: scale-in 0.5s ease-out forwards;
+}
+
+@keyframes scale-out {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes scale-in {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+/* 
+
+
+  --- Scale animation reverse
+
+
+*/
+.scale_rev::view-transition-old(root) {
+    animation: scale-out_rev 0.5s ease-out forwards;
+}
+
+.scale_rev::view-transition-new(root) {
+    animation: scale-in_rev 0.5s ease-out forwards;
+}
+
+@keyframes scale-out_rev {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(.5); opacity: 0; }
+}
+
+@keyframes scale-in_rev {
+    from { transform: scale(1.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+/* 
+
+
+Flip animation 
+
+
+*/
+.flip::view-transition-old(root) {
+    animation: flip-out 0.7s ease-out forwards;
+    transform-origin: left;
+}
+
+.flip::view-transition-new(root) {
+    animation: flip-in 0.7s ease-out forwards;
+    transform-origin: left;
+}
+
+/* 
+
+
+Fade animation 
+
+
+*/
+.fade::view-transition-old(root) {
+    animation: fade-out 0.5s ease-out forwards;
+}
+
+.fade::view-transition-new(root) {
+    animation: fade-in 1.5s ease-out forwards;
+}
+
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes flip-out {
+    from { transform: rotateY(0); opacity: 1; }
+    to { transform: rotateY(90deg); opacity: 0; }
+}
+
+@keyframes flip-in {
+    from { transform: rotateY(-90deg); opacity: 0; }
+    to { transform: rotateY(0); opacity: 1; }
 }

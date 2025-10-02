@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="slide_rev">
+<html lang="en" class="fade">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg" href="/twistux.svg" />
@@ -7,22 +7,29 @@
     <meta name="description" content="Twist UX provides web development and AI services. Contact us for innovative digital solutions.">
     <title>TWIST UX</title>
     <link rel="stylesheet" href="/src/style.css" />
+    <script src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.30/dist/unicornStudio.umd.js"></script>
   </head>
   <body>
 
     <div id="con-nav"></div>
 
-    <div id="con-full" class="services"> <div class="content">
-            <h1>Services</h1>
-            <p>GSAP coded micro-interactions</p>
-            <p>Website animation design</p>
-            <p>Spline3d Interactions & Development </p>
-            <p>Webgl components</p>
-            <p>Webflow JS development & optimization</p>
-          </div>
-        </div>
+    <div id="con-floater">content floater</div>
 
-    
+    <div id="con-full" class="services"><div data-us-project-src="/twistgl.json" style="width:100%; height: 100%"></div></div>
+
+
+        
+    <!--script type="text/javascript">!function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.31/dist/unicornStudio.umd.js",i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head || document.body).appendChild(i)}}();</script-->
+
+    <script>
+  UnicornStudio.init()
+    .then((scenes) => {
+      // Scenes are ready
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+</script>
 
     <script type="module" src="/src/main.js"></script>
   </body>
