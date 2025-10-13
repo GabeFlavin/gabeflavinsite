@@ -9,9 +9,14 @@ async function loadInclude(selector, file) {
 // Load navigation
 loadInclude('#con-nav', '/partials/nav.html');
 
+
+
+
+
 // import GSAP
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.2/index.js';
 import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.82/build/runtime.js';
+
 
 
 const canvas = document.querySelector('#canvas3d') || document.createElement('canvas');
@@ -29,6 +34,85 @@ function playAudio(url) {
   const audio = new Audio(url);
   audio.play();
 }
+
+
+// Magnetic Buttons
+// Found via: https://codepen.io/tdesero/pen/RmoxQg
+
+function initMagneticButtons() {
+
+console.log('Initializing Magnetic Buttons');
+
+  // Magnetic Buttons
+  // Found via: https://codepen.io/tdesero/pen/RmoxQg
+  var magnets = document.querySelectorAll(".gf-magnetic");
+  var strength = 50;
+
+  // START : If screen is bigger as 540 px do magnetic
+  if (window.innerWidth > 540) {
+    // Mouse Reset
+    magnets.forEach((magnet) => {
+      magnet.addEventListener("mousemove", moveMagnet);
+
+      magnet.addEventListener("mouseleave", function (event) {
+        gsap.to(event.currentTarget, 1.5, {
+          x: 0,
+          y: 0,
+          ease: 'elastic.out(1,0.3)',
+        });
+        /*
+        gsap.to($(this).find(".btn-text"), 1.5, {
+          x: 0,
+          y: 0,
+          ease: Elastic.easeOut,
+        });
+        */
+      });
+    });
+
+    // Mouse move
+    function moveMagnet(event) {
+      var magnetButton = event.currentTarget;
+      var bounding = magnetButton.getBoundingClientRect();
+      //var magnetsStrength = magnetButton.getAttribute("data-strength");
+      var magnetsStrength = 300;
+      //var magnetsStrengthText = magnetButton.getAttribute("data-strength-text");
+
+      gsap.to(magnetButton, 1.5, {
+        x: ((event.clientX - bounding.left) / magnetButton.offsetWidth - 0.5) *
+          magnetsStrength,
+        y: ((event.clientY - bounding.top) / magnetButton.offsetHeight - 0.5) *
+          magnetsStrength,
+        rotate: "0.001deg",
+        ease: 'power3.easeOut',
+      });
+      /*
+      gsap.to($(this).find(".btn-text"), 1.5, {
+        x:
+          ((event.clientX - bounding.left) / magnetButton.offsetWidth - 0.5) *
+          magnetsStrengthText,
+        y:
+          ((event.clientY - bounding.top) / magnetButton.offsetHeight - 0.5) *
+          magnetsStrengthText,
+        rotate: "0.001deg",
+        ease: Power4.easeOut,
+      });
+      */
+    }
+  } // END : If screen is bigger as 540 px do magnetic
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Add event listener to play sound on canvas click check to see if canvas exists first
 if (canvas) {
@@ -51,10 +135,10 @@ function setActiveNavByPath() {
         setTimeout(setActiveNavByPath, 500);
         return;
     }
+
+    initMagneticButtons();
     
     navLinks.forEach(link => {
-
-        console.log('Checking link:', link.href);
 
         if (!link.href) return;
         
@@ -88,11 +172,23 @@ function setActiveNavByPath() {
 const nav = document.getElementById('con-buttons');
 const close = document.getElementById('con-close');
 
-console.log('Menu Button:', menuButton);
-console.log('Nav:', nav);
-console.log('Close Button:', close);
+
 
 if (menuButton && nav && close) {
+
+  const rollTarget = document.getElementById('con-roll');
+
+const hoverTl = gsap.timeline({ paused: true });
+hoverTl.to(rollTarget, { width: "50px", borderWidth: 0, padding: 0, gap: "10px", ease: 'power4.out', duration: 0.3 }, 0);
+
+menuButton.addEventListener('mouseenter', () => hoverTl.play());
+menuButton.addEventListener('mouseleave', () => hoverTl.reverse());
+
+
+
+
+
+
   menuButton.addEventListener('click', () => {
     if (nav.style.display === 'flex') {
       // Already open
@@ -163,6 +259,10 @@ if (menuButton && nav && close) {
 
 // Run when page loads
 document.addEventListener('DOMContentLoaded', setActiveNavByPath);
+
+
+
+
 
 
 
