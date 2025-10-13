@@ -12,10 +12,12 @@ loadInclude('#con-nav', '/partials/nav.html');
 
 
 
-
 // import GSAP
-import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.2/index.js';
+import { gsap } from 'gsap';
 import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.82/build/runtime.js';
+
+import { flickerOnLoad } from './animations.js';
+
 
 
 
@@ -41,7 +43,6 @@ function playAudio(url) {
 
 function initMagneticButtons() {
 
-console.log('Initializing Magnetic Buttons');
 
   // Magnetic Buttons
   // Found via: https://codepen.io/tdesero/pen/RmoxQg
@@ -260,8 +261,7 @@ menuButton.addEventListener('mouseleave', () => hoverTl.reverse());
 // Run when page loads
 document.addEventListener('DOMContentLoaded', setActiveNavByPath);
 
-
-
+flickerOnLoad(document.querySelector('#con-floater'), 2);
 
 
 

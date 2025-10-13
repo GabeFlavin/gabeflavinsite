@@ -239,12 +239,12 @@ a.light:hover{
   z-index: 8;
   pointer-events: none;
   user-select: none;
-  opacity: 1;
   display: flex;
-  padding: var(--line-padding-top-bottom) var(--line-padding-left-right);
-  color: floralwhite;
-  background-color: #00000055;
+  padding: 2rem 2.5rem;
+  color: rgb(17, 57, 6);
+  background-color: #25da1477;
   backdrop-filter: blur(8px);
+  opacity: 0;
 }
 
 #con-floater.left{
@@ -259,7 +259,6 @@ a.light:hover{
   margin: auto;
   width: fit-content;
   z-index: 4;
-  padding: var(--line-padding-top-bottom) var(--line-padding-left-right);
   border-radius: 900px;
 }
 
@@ -273,7 +272,6 @@ a.light:hover{
   width: 30ch;
   z-index: 4;
   text-align: left;
-  padding: var(--line-padding-top-bottom) var(--line-padding-left-right);
 }
 
 #con-floater.about{
@@ -287,7 +285,6 @@ a.light:hover{
   width: 40ch;
   z-index: 4;
   text-align: left;
-  padding: var(--line-padding-top-bottom) var(--line-padding-left-right);
 }
 
 @media screen and (max-width: 768px) {
