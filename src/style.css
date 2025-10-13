@@ -2,16 +2,16 @@
 @font-face{
   font-family: 'Urbanist-SemiBold';
   src: url('/fonts/urbanist/Urbanist-SemiBold.ttf')format('truetype');
-font-weight:normal;
-font-style:normal;
-font-display:swap;
+  font-weight:normal;
+  font-style:normal;
+  font-display:swap;
 }
 @font-face{
   font-family: 'Urbanist-Light';
   src: url('/fonts/urbanist/Urbanist-Light.ttf')format('truetype');
-font-weight:normal;
-font-style:normal;
-font-display:swap;
+  font-weight:normal;
+  font-style:normal;
+  font-display:swap;
 }
 
 :root {
@@ -39,10 +39,6 @@ body{
   font-family: 'Urbanist-light', 'Helvetica Neue', sans-serif, Geneva, Tahoma, sans-serif;
   font-size: 1rem;
   line-height: 1.5rem;
-}
-
-
-@media screen and (max-width: 480px) {
 }
 
 
@@ -138,14 +134,31 @@ a.light:hover{
   justify-content: center;
   height: 40px;
   border: #000 solid 2px;
+  animation: smoothBorderColor 4s linear infinite;
 }
 
+@keyframes smoothBorderColor {
+  0% { border-color: #ff00ff; }
+  25% { border-color: #4ecdc4; }
+  50% { border-color: #141480; }
+  75% { border-color: #ffdf0c; }
+  100% { border-color: #ff00ff; }
+}
+
+@keyframes smoothBackgroundColor {
+  0% { background: #ff00ff; }
+  25% { background: #4ecdc4; }
+  50% { background: #141480; }
+  75% { background: #ffdf0c; }
+  100% { background: #ff00ff; }
+}
 
 #con-menu .menu-bar{
   width: 100%;
   height: 2px;
   background-color: #000000;
   pointer-events: none;
+  z-animation: smoothBackgroundColor 6s linear infinite;
 }
 
 #con-close{
@@ -163,6 +176,12 @@ a.light:hover{
   height: 4rem;
   padding: .5rem;
   box-sizing: border-box;
+  transform-origin: center;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#con-close svg:hover {
+  transform: scale(.8) rotate(90deg);
 }
 
 #con-buttons{
@@ -180,18 +199,16 @@ a.light:hover{
   backdrop-filter: blur(8px);
 }
 
-
 #con-buttons a{
-  background-color: #ffffffa8;
+  background: linear-gradient(-160deg, #ffffffe6, #e3e9ea99);
   color: #2b253a;
-  letter-spacing: -.6rem;
+  letter-spacing: -.1rem;
   font-size: min(20vw, 20vh); /* Uses smaller of width or height */
   z-font-size: 20vw;
-  z-padding: 0 min(10vw, 10vh);
+  padding: 0 min(4vw, 4vh);
   margin: 0;
-  padding:0;
   display: flex;
-  line-height: 75%;
+  z-line-height: 75%;
   flex:1;
   align-items: center;
   font-family: 'urbanist-light', sans-serif;
@@ -273,6 +290,41 @@ a.light:hover{
   padding: var(--line-padding-top-bottom) var(--line-padding-left-right);
 }
 
+@media screen and (max-width: 768px) {
+  #con-floater {
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 90%;
+    box-sizing: border-box;
+  }
+
+  #con-floater.services,
+  #con-floater.about {
+    width: 90%;
+    right: 0;
+    left: 0;
+  }
+
+}
+
+
+
+
+/* 
+
+
+
+End con-floater
+
+
+
+*/
+
+
+
+
+
 #con-full{
   position: relative;
   width: 100%;
@@ -320,10 +372,36 @@ h1{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 
 
 
-Image Page Styles 
+
+
+
+
+
+
+
+Image Page Styles Delete Later
+
+
+
+
 
 
 */
@@ -379,7 +457,20 @@ Image Page Styles
   user-select: none;
 }
 
+/*
 
+
+
+
+
+
+PAGE TRANSITIONS
+
+
+
+
+
+*/
 
 
 @view-transition {

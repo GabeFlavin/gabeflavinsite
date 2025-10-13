@@ -75,7 +75,7 @@ console.log('Initializing Magnetic Buttons');
       var magnetButton = event.currentTarget;
       var bounding = magnetButton.getBoundingClientRect();
       //var magnetsStrength = magnetButton.getAttribute("data-strength");
-      var magnetsStrength = 300;
+      var magnetsStrength = 100;
       //var magnetsStrengthText = magnetButton.getAttribute("data-strength-text");
 
       gsap.to(magnetButton, 1.5, {
