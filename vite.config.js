@@ -4,15 +4,14 @@ import { resolve } from 'path'
 export default defineConfig({
   build: {
     // Minification settings (enabled by default)
-    minify: 'terser', // or 'esbuild' for more aggressive minification
+    minify: 'esbuild', // or 'esbuild' for more aggressive minification
     
     // Additional optimization options
     sourcemap: false, // Disable source maps for smaller build
-    
+
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        dev: resolve(__dirname, 'index-dev.html'),
         about: resolve(__dirname, 'about.html'),
         services: resolve(__dirname, 'services.html'),
         contact: resolve(__dirname, 'contact.html'),
