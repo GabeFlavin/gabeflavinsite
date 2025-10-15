@@ -1,4 +1,11 @@
 
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+} 
+
 @font-face{
   font-family: 'Urbanist-SemiBold';
   src: url('/fonts/urbanist/Urbanist-SemiBold.ttf')format('truetype');
@@ -74,10 +81,6 @@ twist main
 
 */
 
-p{
-  margin: 0;
-  padding: 0;
-}
 
 canvas {
   display: flex;
@@ -92,12 +95,17 @@ canvas {
 
 a{
   text-decoration: none;
-  color: #032a2c;
+  color: inherit;
 }
 a:hover{
-  color: #000;
-  transition: opacity .7s ease-out;
-  cursor: pointer;
+  color: #a8fce9;
+  transition: color .2s ease-out;
+}
+a:visited{
+  color: #4ecdc4;
+}
+a:active{
+  color: #4ecdc4;
 }
 
 a.light{
@@ -110,8 +118,8 @@ a.light:hover{
   opacity: 1;
   color: #a2e2a4;
   transition: opacity .7s ease-out;
-  cursor: pointer;
 }
+
 
 #con-nav{
   position: fixed;
@@ -138,18 +146,17 @@ a.light:hover{
 }
 
 #con-roll{
-  z-background-color: #ff0000;
   transform-origin: center;
   padding: .1rem .5rem;
   display: flex;
   flex-direction: column;
   gap: .25rem;
-  width: 30px;
+  width: 50px;
   align-items: center;
   justify-content: center;
   height: 40px;
   border: #000 solid 2px;
-  animation: smoothBorderColor 4s linear infinite;
+  animation: smoothBorderColor 6s linear infinite;
 }
 
 @keyframes smoothBorderColor {
@@ -162,18 +169,18 @@ a.light:hover{
 
 @keyframes smoothBackgroundColor {
   0% { background: #ff00ff; }
-  25% { background: #4ecdc4; }
+  25% { background: #4de124; }
   50% { background: #141480; }
-  75% { background: #ffdf0c; }
+  75% { background: #ffffff; }
   100% { background: #ff00ff; }
 }
 
 #con-menu .menu-bar{
   width: 100%;
   height: 2px;
-  background-color: #000000;
+  animation: smoothBackgroundColor 8s linear infinite;
   pointer-events: none;
-  z-animation: smoothBackgroundColor 6s linear infinite;
+  mix-blend-mode: exclusion;
 }
 
 #con-close{
@@ -210,7 +217,9 @@ a.light:hover{
   flex-direction: column;
   width: 100%;
   margin: auto;
-  min-height: 100vh;
+  min-height: 100svh; /* Fallback */
+  min-height: 100dvh;
+  min-height: -webkit-fill-available; /* iOS Safari */
   backdrop-filter: blur(8px);
 }
 
@@ -252,9 +261,7 @@ a.light:hover{
   top: 50%;
   left: 5%;
   z-index: 8;
-  pointer-events: none;
   user-select: none;
-  display: flex;
   padding: 1rem 1.5rem;
   color: rgb(24, 216, 216);
   background-color: #0d312bde;
@@ -266,10 +273,14 @@ a.light:hover{
   text-wrap-style: pretty;
   text-shadow: 0 0 10px rgba(145, 255, 0, .4);
   box-shadow: inset 0 0 60px rgba(0, 221, 255, 0.4);
+  width: 90%;
+  max-width: 400px;
 }
+
 
 #con-floater.left{
   text-align: left;
+  pointer-events: all;
 }
 
 #con-floater.home{
@@ -278,8 +289,13 @@ a.light:hover{
   right: 0%;
   left: 0%;
   margin: auto;
-  width: fit-content;
   z-index: 4;
+  width: fit-content;
+  text-align: center;
+  line-height: 1.4rem;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  max-width: fit-content;
 }
 
 #con-floater.services{
@@ -289,7 +305,6 @@ a.light:hover{
   top: auto;
   margin: auto;
   font-size: 1rem;
-  width: 30ch;
   z-index: 4;
   text-align: left;
 }
@@ -302,7 +317,6 @@ a.light:hover{
   margin: auto;
   display: flex;
   flex-direction: column;
-  width: 40ch;
   z-index: 4;
   text-align: left;
 }
@@ -311,16 +325,32 @@ a.light:hover{
   #con-floater {
     left: 0;
     right: 0;
+    bottom: 0;
     margin: auto;
-    width: 90%;
-    box-sizing: border-box;
   }
 
-  #con-floater.services,
-  #con-floater.about {
-    width: 90%;
+  #con-floater.services, #con-floater.home,
+  #con-floater.about, #con-floater.left {
     right: 0;
     left: 0;
+    top: auto;
+    bottom: 2.5%;
+    width: fit-content;
+    max-width: 90%;
+    display: block; 
+    flex-direction: column;
+    font-size: .8rem;
+    line-height: 1.1rem;
+  }
+
+  #con-floater.left{
+    text-align: center;
+    pointer-events: all;    
+  }
+
+  #con-menu{
+    width: 80px;
+    min-height: 75px;
   }
 
 }
@@ -337,9 +367,6 @@ End con-floater
 
 
 */
-
-
-
 
 
 #con-full{
