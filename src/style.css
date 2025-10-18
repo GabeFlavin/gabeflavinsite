@@ -4,6 +4,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  text-wrap-style: pretty;
 } 
 
 @font-face{
@@ -242,12 +243,13 @@ a.light:hover{
 }
 #con-buttons a:hover{
   background-color: #ffffffdc;
-  color: #7aacde;
+  color: #379bff;
   transition: color .2s ease-in, background-color .2s ease-in-out;
 }
 
 #con-buttons a.active{
-  color: #7aacde;
+  color: #ffffff;
+  background-color: #000000a2;
   transition: color .2s ease-in, background-color .2s ease-in-out;
 }
 
@@ -262,12 +264,12 @@ a.light:hover{
   left: 5%;
   z-index: 8;
   user-select: none;
-  padding: 1rem 1.5rem;
-  color: rgb(24, 216, 216);
+  padding: 1rem 1rem;
+  color: rgb(154, 228, 255);
   background-color: #0d312bde;
   font-family: 'RedditMono-Medium', sans-serif;
   backdrop-filter: blur(8px);
-  line-height: 1.8rem;
+  line-height: 1.4rem;
   font-size: .9rem;
   opacity: 0;
   text-wrap-style: pretty;
@@ -278,9 +280,10 @@ a.light:hover{
 }
 
 
-#con-floater.left{
+#con-floater.contact{
   text-align: left;
   pointer-events: all;
+  max-width: 250px;
 }
 
 #con-floater.home{
@@ -329,25 +332,35 @@ a.light:hover{
     margin: auto;
   }
 
-  #con-floater.services, #con-floater.home,
-  #con-floater.about, #con-floater.left {
+  #con-floater.home, #con-floater.about{
     right: 0;
     left: 0;
     top: auto;
-    bottom: 2.5%;
+    bottom: 0;
     width: fit-content;
-    max-width: 90%;
+    max-width: 100%;
     display: block; 
     flex-direction: column;
     font-size: .8rem;
     line-height: 1.1rem;
+    background-color: #0d312ba4;
   }
 
-  #con-floater.left{
-    text-align: center;
-    pointer-events: all;    
+  #con-floater.contact, #con-floater.services {
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: fit-content;
+    width: 70%;
+    display: block; 
+    flex-direction: column;
+    font-size: .8rem;
+    line-height: 1.2rem;
+    background-color: #0d3120a4;
   }
-
+ 
   #con-menu{
     width: 80px;
     min-height: 75px;
@@ -355,8 +368,23 @@ a.light:hover{
 
 }
 
+ #con-floater.contact{
+    text-align: center;
+  }
 
 
+#con-floater.contact .qr_code{
+    width: 100px;
+    height: 100px;
+    margin: auto;
+  }
+  .contact_btn{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    text-transform: uppercase;
+  }
 
 /* 
 
