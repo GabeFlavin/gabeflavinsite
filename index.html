@@ -10,12 +10,52 @@
    <link rel="prefetch" href="services.html" as="document">
     <link rel="prefetch" href="about.html" as="document">
     <link rel="prefetch" href="contact.html" as="document">
+    <script src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.30/dist/unicornStudio.umd.js"></script>
   </head>
   <body>
     
     <div id="con-nav"></div>
-    <div id="con-floater" class="home">Responsive 3D, WebGL shaders, micro interaction and performance specialists. Got a project in mind? <a href="contact.html">contact us</a></div>
-    <canvas id="canvas3d"></canvas>
+
+    <div id="con-hero">
+        <div id="con-floater" class="home">Looking for a new position <a href="contact.html">let's talk</a></div>
+        <div data-us-project-src="/gf_hero.json" style="width:100%; height: 100%"></div>
+    </div>
+ 
+ <script>
+  UnicornStudio.init()
+    .then((scenes) => {
+      // Scenes are ready
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+</script>
+
+
+    <div id="con-section" class="home-bio">
+          <div class="bio-text"><h2>Gabe Flavin is an accomplished product designer with a passion for creating exceptional digital experiences. With over 15+ years of experience in the industry, Gabe has become a recognized expert in design systems, mobile apps, and enterprise websites.</h2></div>
+      
+    </div>
+
+
+    <div id="con-section" class="home-work">
+      <div id="con-row">
+        <div id="con-col" class="home-card">
+          card 1
+        </div>
+        <div id="con-col" class="home-card">
+          card 2
+        </div>
+      </div>
+      <div id="con-row">
+        <div id="con-col" class="home-card">
+          card 1
+        </div>
+        <div id="con-col" class="home-card">
+          card 2
+        </div>
+      </div>
+    </div>
 
 
     <script type="module" src="/src/main.js"></script>

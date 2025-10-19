@@ -180,7 +180,7 @@ if (menuButton && nav && close) {
   const rollTarget = document.getElementById('con-roll');
 
 const hoverTl = gsap.timeline({ paused: true });
-hoverTl.to(rollTarget, { width: '50px', borderWidth: 0, padding: 0, gap: "10px", ease: 'power4.out', duration: 0.3 }, 0);
+hoverTl.to(rollTarget, { width: '70px', borderWidth: 0, padding: 0, background: '#ffffffbf', gap: '10px', ease: 'power4.out', duration: 0.3 }, 0);
 
 menuButton.addEventListener('mouseenter', () => hoverTl.play());
 menuButton.addEventListener('mouseleave', () => hoverTl.reverse());

@@ -44,7 +44,7 @@
   --ease-material: cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-html, body, #root {
+html, body{
   width: 100%;
   height: 100%;
 }
@@ -55,19 +55,9 @@ body{
   background: #000000;
   display: flex;
   flex-direction: column;
-  text-align: center;
   font-family: 'Urbanist-light', 'Helvetica Neue', sans-serif, Geneva, Tahoma, sans-serif;
   font-size: 1rem;
   line-height: 1.5rem;
-}
-
-
-
-._root {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 
@@ -79,14 +69,11 @@ GF main
 
 */
 
-
 canvas {
   display: flex;
-  width: 100vw;
-  height: 100vh; 
-  position: fixed;
-  top: 0;
-  left: 0;
+  width: 100%;
+  height: 100svh; 
+  position: relative;
   z-index: 0;
   cursor: pointer;
 }
@@ -128,18 +115,15 @@ a.light:hover{
   flex-direction: column;
 }
 
-
-
 #con-menu{
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 888;
-  cursor: pointer;
   width: 100px;
   min-height: 100px;
+  z-index: 888;
+  cursor: pointer;
   margin: auto;
-  z-background-color: aqua;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -151,41 +135,24 @@ a.light:hover{
   display: flex;
   flex-direction: column;
   gap: .25rem;
-  width: 50px;
+  width: 70px;
+  height: 70px;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  border: #000 solid 2px;
-  z-animation: smoothBorderColor 6s linear infinite;
-}
-
-@keyframes smoothBorderColor {
-  0% { border-color: #ff00ff; }
-  25% { border-color: #4ecdc4; }
-  50% { border-color: #141480; }
-  75% { border-color: #ffdf0c; }
-  100% { border-color: #ff00ff; }
-}
-
-@keyframes smoothBackgroundColor {
-  0% { background: #ff00ff; }
-  25% { background: #4de124; }
-  50% { background: #141480; }
-  75% { background: #ffffff; }
-  100% { background: #ff00ff; }
+  border: #ffffff solid 2px;
+  mix-blend-mode: difference;
 }
 
 #con-menu .menu-bar{
-  width: 100%;
+  width: 60%;
   height: 2px;
-  z-animation: smoothBackgroundColor 8s linear infinite;
   pointer-events: none;
-  background-color: #000;
-  z-mix-blend-mode: exclusion;
+  background-color: #ffffff;
+  mix-blend-mode: difference;
 }
 
 #con-close{
-  background-color: #ffffffa8;
+  z-background-color: #ffffffa8;
   color: #fff;
   font-size: 1.5rem;
   width: 100%;
@@ -221,7 +188,8 @@ a.light:hover{
   min-height: 100svh; /* Fallback */
   min-height: 100dvh;
   min-height: -webkit-fill-available; /* iOS Safari */
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  background-color: #ffffff82;
 }
 
 #con-buttons a{
@@ -254,6 +222,113 @@ a.light:hover{
   text-align: right;
   justify-content: flex-end;
 } 
+
+
+/*
+
+
+
+
+
+MAIN CONTAINER SECTIONS
+
+
+
+
+
+*/
+#con-section{
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.home-bio{
+  background-color: #232922;
+
+}
+.home-work{
+  background-color: #536D52;
+  justify-content: center;
+  align-items: center;
+}
+/*
+
+
+sticky floater boxes
+
+
+*/
+#con-sticky{
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  width: 100%;
+  min-height: 100vh;
+  z-background-color: #379bff;
+}
+
+
+
+.bio-text h2{
+  font-size: min(10vw, 13vh);
+  line-height: min(12vw, 15vh);
+  color: #ffffff;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+#con-row{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 2rem;
+  max-width: 70%;
+}
+
+#con-col{
+  color: #ffffff;
+  text-align: center;
+  padding: 2rem;
+}
+
+.home-card{
+  background-color: #2C3E50;
+  flex: 1 1 auto;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+#con-hero{
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#con-full{
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  z-index: 1;
+  overflow-x: hidden;
+}
+
 
 #con-floater{
   position: absolute;
@@ -365,23 +440,23 @@ a.light:hover{
 
 }
 
- #con-floater.contact{
-    text-align: center;
-  }
+#con-floater.contact{
+  text-align: center;
+}
 
 
 #con-floater.contact .qr_code{
     width: 100px;
     height: 100px;
     margin: auto;
-  }
-  .contact_btn{
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    text-transform: uppercase;
-  }
+}
+.contact_btn{
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  text-transform: uppercase;
+}
 
 /* 
 
@@ -394,20 +469,8 @@ End con-floater
 */
 
 
-#con-full{
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  z-index: 1;
-  overflow-x: hidden;
-}
-
 .services{
-  background: #000000;
+  z-background: #000000;
 }
 
 .contact{
