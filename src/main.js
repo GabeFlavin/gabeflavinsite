@@ -6,11 +6,16 @@ async function loadInclude(selector, file) {
   document.querySelector(selector).innerHTML = html;
 }
 
-// Load navigation
-loadInclude('#con-nav', '/partials/nav.html');
+// Load navigation and initialize magnetic buttons after it's loaded
+async function loadNavigation() {
+  await loadInclude('#con-nav', '/partials/nav.html');
+  // Initialize magnetic buttons after navigation is loaded
+  setTimeout(() => {
+    initMagneticButtons();
+  }, 100); // Small delay to ensure DOM is updated
+}
 
-
-
+loadNavigation();
 
 // import GSAP
 import { gsap } from 'gsap';
@@ -18,24 +23,32 @@ import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.82/build/
 
 import { flickerOnLoad } from './animations.js';
 
+import Lenis from 'lenis'
 
+// Declare lenis variable - will be initialized after Unicorn Studio loads
+let lenis = null;
 
+// Initialize Lenis with configuration to prevent conflicts
+function initLenis() {
+  lenis = new Lenis({
+    lerp: 0.1,
+    smoothWheel: true,
+    smoothTouch: false, // Disable on touch to prevent conflicts
+  });
 
-const canvas = document.querySelector('#canvas3d') || document.createElement('canvas');
-canvas.id = 'canvas3d';
-const app = new Application(canvas);
-app.load('/scene.splinecode');
-
-const canvas_contact = document.querySelector('#canvas3d_contact') || document.createElement('canvas');
-canvas_contact.id = 'canvas3d';
-const app_contact = new Application(canvas_contact);
-app_contact.load('/scene_contact.splinecode');
-
-// create a function that plays an audio file when called
-function playAudio(url) {
-  const audio = new Audio(url);
-  audio.play();
+  // Use requestAnimationFrame to continuously update the scroll
+  function raf(time) {
+    if (lenis) {
+      lenis.raf(time);
+    }
+    requestAnimationFrame(raf);
+  }
+  
+  requestAnimationFrame(raf);
 }
+
+
+
 
 
 // Magnetic Buttons
@@ -51,10 +64,11 @@ function initMagneticButtons() {
 
   // START : If screen is bigger as 540 px do magnetic
   if (window.innerWidth > 540) {
+
+      
     // Mouse Reset
     magnets.forEach((magnet) => {
       magnet.addEventListener("mousemove", moveMagnet);
-
       magnet.addEventListener("mouseleave", function (event) {
         gsap.to(event.currentTarget, 1.5, {
           x: 0,
@@ -100,26 +114,7 @@ function initMagneticButtons() {
       });
       */
     }
-  } // END : If screen is bigger as 540 px do magnetic
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Add event listener to play sound on canvas click check to see if canvas exists first
-if (canvas) {
-  canvas.addEventListener('click', () => {
-    playAudio('/sounds/click.mp3');
-  });
+  }
 }
 
 
@@ -137,8 +132,6 @@ function setActiveNavByPath() {
         return;
     }
 
-    initMagneticButtons();
-    
     navLinks.forEach(link => {
 
         if (!link.href) return;
@@ -169,9 +162,77 @@ function setActiveNavByPath() {
         }
     });
 
-    const menuButton = document.getElementById('con-menu');
+const menuButton = document.getElementById('con-menu');
 const nav = document.getElementById('con-buttons');
 const close = document.getElementById('con-close');
+
+
+
+/* 
+
+SPLINE 3D CANVAS LOAD
+
+*/
+
+// Track canvas loading to prevent conflicts
+let canvasesLoaded = 0;
+const totalCanvases = 2;
+
+function onCanvasLoaded() {
+  canvasesLoaded++;
+  console.log(`Canvas ${canvasesLoaded}/${totalCanvases} loaded`);
+  
+  if (canvasesLoaded >= totalCanvases) {
+    // All Unicorn Studio canvases loaded, now safe to init Lenis
+    setTimeout(() => {
+      console.log('All canvases loaded, initializing Lenis...');
+      initLenis();
+    }, 500); // Small delay to ensure everything is settled
+  }
+}
+
+// Canvas loading with proper sequencing
+const canvas = document.querySelector('#canvas3d') || document.createElement('canvas');
+canvas.id = 'canvas3d';
+// Add data attribute to prevent Lenis from interfering
+canvas.setAttribute('data-lenis-prevent', '');
+
+const app = new Application(canvas);
+app.load('/scene.splinecode')
+  .then(() => {
+    console.log('Main canvas loaded successfully');
+    onCanvasLoaded();
+  })
+  .catch((error) => {
+    console.error('Error loading main canvas:', error);
+    onCanvasLoaded(); // Continue even if there's an error
+  });
+
+const canvas_contact = document.querySelector('#canvas3d_contact') || document.createElement('canvas');
+canvas_contact.id = 'canvas3d_contact';
+// Add data attribute to prevent Lenis from interfering
+canvas_contact.setAttribute('data-lenis-prevent', '');
+
+const app_contact = new Application(canvas_contact);
+app_contact.load('/scene_contact.splinecode')
+  .then(() => {
+    console.log('Contact canvas loaded successfully');
+    onCanvasLoaded();
+  })
+  .catch((error) => {
+    console.error('Error loading contact canvas:', error);
+    onCanvasLoaded(); // Continue even if there's an error
+  });
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -179,16 +240,11 @@ if (menuButton && nav && close) {
 
   const rollTarget = document.getElementById('con-roll');
 
-const hoverTl = gsap.timeline({ paused: true });
-hoverTl.to(rollTarget, { width: '70px', borderWidth: 0, padding: 0, background: '#ffffffbf', gap: '10px', ease: 'power4.out', duration: 0.3 }, 0);
+  const hoverTl = gsap.timeline({ paused: true });
+  hoverTl.to(rollTarget, { width: '70px', borderWidth: 0, padding: 0, background: '#ffffffbf', gap: '10px', ease: 'power4.out', duration: 0.3 }, 0);
 
-menuButton.addEventListener('mouseenter', () => hoverTl.play());
-menuButton.addEventListener('mouseleave', () => hoverTl.reverse());
-
-
-
-
-
+  menuButton.addEventListener('mouseenter', () => hoverTl.play());
+  menuButton.addEventListener('mouseleave', () => hoverTl.reverse());
 
   menuButton.addEventListener('click', () => {
     if (nav.style.display === 'flex') {
@@ -259,9 +315,23 @@ menuButton.addEventListener('mouseleave', () => hoverTl.reverse());
 }
 
 // Run when page loads
-document.addEventListener('DOMContentLoaded', setActiveNavByPath);
+document.addEventListener('DOMContentLoaded', () => {
+  setActiveNavByPath();
+});
 
 flickerOnLoad(document.querySelector('#con-floater'), 2);
+
+// Fallback: Initialize Lenis after 3 seconds if canvases haven't loaded
+setTimeout(() => {
+  if (!lenis) {
+    console.log('Fallback: Initializing Lenis due to timeout');
+    initLenis();
+  }
+}, 3000);
+    
+
+
+
 
 
 
