@@ -105,7 +105,6 @@ a.light:hover{
   transition: opacity .7s ease-out;
 }
 
-
 #con-nav{
   position: fixed;
   top: 0;
@@ -156,6 +155,7 @@ a.light:hover{
   color: #fff;
   font-size: 1.5rem;
   width: 100%;
+  padding: 1rem;
   z-index: 9999;
   text-align: right;
   cursor: pointer;
@@ -205,23 +205,21 @@ a.light:hover{
   font-family: 'urbanist-light', sans-serif;
   transition: color .5s ease-out, background-color .8s ease-out;
   overflow: hidden;
+  text-transform: uppercase;
 }
+
 #con-buttons a:hover{
-  background-color: #ffffffdc;
+  z-background-color: #ffffffdc;
   color: #379bff;
   transition: color .2s ease-in, background-color .2s ease-in-out;
 }
 
 #con-buttons a.active{
-  color: #ffffff;
-  background-color: #000000a2;
+  color: #8d3bff;
+  z-background-color: #000000a2;
   transition: color .2s ease-in, background-color .2s ease-in-out;
 }
 
-#con-buttons a.right{
-  text-align: right;
-  justify-content: flex-end;
-} 
 
 
 /*
@@ -243,11 +241,13 @@ MAIN CONTAINER SECTIONS
   display: flex;
   flex-direction: column;
   margin: auto;
+  min-height: 100svh; /* Fallback */
 }
 
 .home-bio{
   background-color: #232922;
-
+  padding-left: min(10vw, 10vh);
+  padding-right: min(10vw, 10vh);
 }
 .home-work{
   background-color: #536D52;
@@ -261,21 +261,42 @@ sticky floater boxes
 
 
 */
-#con-sticky{
-  position: sticky;
+.con-sticky{
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 9;
   width: 100%;
-  min-height: 100vh;
-  z-background-color: #379bff;
+  height: 100%;
+  flex: 1;
+  align-items: stretch;
+  display: flex;
 }
-
-
-
+.sticky-top{
+  position: sticky;
+  top: 0;
+  align-self: flex-end;
+  z-index: 9;
+  width: 100%;
+  height: 30vh;
+  background: linear-gradient(180deg, rgba(35, 41, 34, 100) 50%, rgba(35, 41, 34, 0) 100%);
+}
+.sticky-bottom{
+  position: sticky;
+  bottom: 0;
+  align-self: flex-end;
+  z-index: 9;
+  width: 100%;
+  height: 30vh;
+  background: linear-gradient(180deg, rgba(35, 41, 34, 0) 0%, rgba(35, 41, 34, 100) 50%);
+}
+.bio-text{
+  padding: min(5vw, 5vh);
+}
 .bio-text h2{
-  font-size: min(10vw, 13vh);
-  line-height: min(12vw, 15vh);
+  font-size: min(12vw, 12vh);
+  line-height: min(15vw, 14vh);
+  font-family: 'Urbanist-Light', sans-serif;
   color: #ffffff;
   text-align: center;
   padding-bottom: 1rem;
@@ -762,4 +783,44 @@ Fade animation
 @keyframes flip-in {
     from { transform: rotateY(-90deg); opacity: 0; }
     to { transform: rotateY(0); opacity: 1; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
 }
