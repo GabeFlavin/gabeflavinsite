@@ -6,68 +6,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Gabe Flavin is a UX director and designer specializing in web development and AI services. Contact him for innovative digital solutions.">
     <title>Gabe Flavin, UX director & designer</title>
-    <link rel="stylesheet" href="/src/style.css" />
-   <link rel="prefetch" href="services.html" as="document">
+
+    <!-- Prefetch links for faster navigation -->
+    <link rel="prefetch" href="services.html" as="document">
     <link rel="prefetch" href="about.html" as="document">
     <link rel="prefetch" href="contact.html" as="document">
-    <script src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.30/dist/unicornStudio.umd.js"></script>
-  </head>
-  <body>
     
+    <!-- External scripts and stylesheets -->
+    <script src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.30/dist/unicornStudio.umd.js"></script>
+    <link rel="stylesheet" href="/src/style.css">
+  </head>
+
+  <body>
+    <!-- Navigation container -->
     <div id="con-nav"></div>
 
-    <div id="con-hero">
-        <div id="con-floater" class="home">Looking for a new position <a href="contact.html">let's talk</a></div>
-        <div data-us-project-src="/gf_hero.json" style="width:100%; height: 100%"></div>
-    </div>
- 
- <script>
-  UnicornStudio.init()
-    .then((scenes) => {
-      // Scenes are ready
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-</script>
-
-
-
-
-    <div id="con-section" class="home-bio">
-         
-          <div class="sticky-top"></div>
-
-          <div class="bio-text"><h2>Gabe Flavin is an accomplished product designer with a passion for creating exceptional digital experiences. With over 15+ years of experience in the industry, Gabe has become a recognized expert in design systems, mobile apps, and enterprise websites.</h2></div>
-
-           <div class="sticky-bottom"></div>
-      
-    </div>
-
-
-    <div id="con-section" class="home-work">
-      <div id="con-row">
-         <div id="con-col">/ work</div>
-      </div>  
-      <div id="con-row">
-        <div id="con-col" class="home-card">
-          card 1
+    <!-- Hero section with UnicornStudio animation -->
+    
+    <!-- Main content container -->
+    <div id="con-main">
+      <!-- Bio section -->
+      <div class="con-section home-bio">
+        <div class="sticky-top"></div>
+        
+        <div class="bio-text">
+          <h2>
+            Gabe Flavin is an accomplished product designer with a passion for creating exceptional digital experiences. 
+            With over 15+ years of experience in the industry, Gabe has become a recognized expert in design systems, 
+            mobile apps, and enterprise websites.
+          </h2>
         </div>
-        <div id="con-col" class="home-card stagger">
-          card 2
+        
+        <div class="sticky-bottom"></div>
+      </div>
+
+      <!-- Projects section -->
+      <div class="con-section home-work">
+        <!-- Section header -->
+        <div class="con-row sticky">
+          <div class="con-col">
+            <h1>/ Projects</h1>
+          </div>
+        </div>
+        
+        <!-- Junior Achievement project -->
+        <div class="con-row noise-bg color1">
+           <div class="con-col home-visual">
+            <div id="unicorn-container2" data-us-project-src="ja.json"></div>
+          </div>
+          <div class="con-col padding-right home-copy fade-in">
+            <h3>/ Junior Achievement</h3>
+            <h4>How do you create a visual look that inspires young women leaders?</h4>
+            <div class="skills">
+              <span>Design</span>
+              <span>Art Direction</span>
+              <span>Business Simulation</span>
+            </div>
+            <div class="btn gf-magnetic">view project details</div>
+          </div>
+        </div>
+
+        <!-- Human Brand AI project -->
+        <div class="con-row noise-bg color2">
+          
+          <div class="con-col padding-left home-copy fade-in">
+            <h3>/ Human Brand AI</h3>
+            <h4>How do you tell the story of an AI brand strategy company?</h4>
+            <div class="skills">
+              <span>Indentity</span>
+              <span>Branding</span>
+              <span>UI Design</span>
+            </div>
+            <div class="btn gf-magnetic">view project details</div>
+          </div>
+          <div class="con-col home-visual">
+            <div id="unicorn-container2" data-us-project-src="test.json"></div>
+          </div>
+        </div>
+
+        <!-- Harvard Business School project -->
+        <div class="con-row noise-bg color3">
+
+          <div class="con-row over">
+            <div class="con-col home-visual height-sized">
+              <div id="unicorn-container2" data-us-project-src="hbr.json"></div>
+              
+            </div>
+            <div class="con-col padding-right home-copy">
+              <h3>/ Harvard Business School</h3>
+              <h4>How to you teach adaptive leadership to leaders? A zombie apocalypse simulation of course.</h4>
+              <div class="skills">
+                <span>UI Design</span>
+                <span>Art Direction</span>
+                <span>Business Simulation</span>
+              </div>
+              <div class="btn gf-magnetic">view project details</div>
+            </div>
+          </div>
+          
+          <div class="con-parallax parallax">
+            
+
+            <!-- Medium speed layer -->
+            <div class="parallax-layer parallax-grid parallax-target" rel="1.2">
+              <img src="/img/grid.png" class="grid" alt="Grid Overlay" />
+            </div>
+
+            <!-- Medium speed layer -->
+            <div class="parallax-layer parallax-bkg parallax-target" rel=".3"><img src="/img/background.jpg" class="bkg" alt="Background Image" /></div>
+            
+          </div>
+        </div>
+
+        <!-- Electrolux project -->
+        <div class="con-row noise-bg color4">
+          <div class="con-col padding-left home-copy">
+            <h3>/ Electrolux</h3>
+            <h4>How does an app manage your laundry, refrigerator, and oven?</h4>
+            <div class="skills">
+              <span>Design</span>
+              <span>Art Direction</span>
+              <span>Business Simulation</span>
+            </div>
+            <div class="btn gf-magnetic">view project details</div>
+          </div>
+          <div class="con-col home-visual">
+            <div class="con-col home-visual">
+              <div id="unicorn-container2" data-us-project-src="test.json">
+            </div>
+          </div></div>
         </div>
       </div>
-      <div id="con-row">
-        <div id="con-col" class="home-card">
-          card 1
-        </div>
-        <div id="con-col" class="home-card stagger">
-          card 2
-        </div>
+
+      <!-- Footer section -->
+      <div class="con-section footer">
       </div>
+      <!-- end of main container -->
     </div>
 
-
+    <!-- JavaScript -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, initializing UnicornStudio...');
+        
+        // Initialize UnicornStudio
+        UnicornStudio.init()
+          .then((scenes) => {
+            console.log('UnicornStudio scenes loaded successfully:', scenes);
+          })
+          .catch((err) => {
+            console.error('UnicornStudio initialization error:', err);
+          });
+      });
+    </script>
+    
+    <!-- Main application script -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

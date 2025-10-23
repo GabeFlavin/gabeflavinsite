@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UnicornStudio Test</title>
+    <script src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.33/dist/unicornStudio.umd.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: #000;
+      }
+      
+      #unicorn-container {
+        width: 100vw;
+        height: 100vh;
+        min-height: 600px;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      #unicorn-container canvas {
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 600px !important;
+      }
+      .section {
+        height: 100vh;
+      }
+    </style>
+
+    <link rel="stylesheet" href="/src/style.css">
+  </head>
+  <body>
+     <div id="con-nav"></div>
+<div id="unicorn-container" data-us-project-src="/gf_hero.json"></div>
+<div class="con-section home-bio">
+         
+          <div class="sticky-top"></div>
+
+          <div class="bio-text"><h2>Gabe Flavin is an accomplished product designer with a passion for creating exceptional digital experiences. With over 15+ years of experience in the industry, Gabe has become a recognized expert in design systems, mobile apps, and enterprise websites.</h2></div>
+
+          <div class="sticky-bottom"></div>
+      
+    </div>
+<div class="section"></div>
+    <script>
+      
+        document.addEventListener('DOMContentLoaded', function() {
+        
+        console.log('DOM loaded, initializing UnicornStudio...');
+        
+        // Initialize UnicornStudio
+        UnicornStudio.init()
+        .then((scenes) => {
+          
+        })
+        .catch((err) => {
+          
+        });
+      });
+      
+    </script>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

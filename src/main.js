@@ -19,32 +19,41 @@ loadNavigation();
 
 // import GSAP
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.82/build/runtime.js';
 
 import { flickerOnLoad } from './animations.js';
 
 import Lenis from 'lenis'
 
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
 // Declare lenis variable - will be initialized after Unicorn Studio loads
 let lenis = null;
 
 // Initialize Lenis with configuration to prevent conflicts
 function initLenis() {
-  lenis = new Lenis({
-    lerp: 0.1,
-    smoothWheel: true,
-    smoothTouch: false, // Disable on touch to prevent conflicts
-  });
+    lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+    });
 
-  // Use requestAnimationFrame to continuously update the scroll
-  function raf(time) {
-    if (lenis) {
-      lenis.raf(time);
+    // Animation loop
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
-  }
-  
-  requestAnimationFrame(raf);
+
+    console.log('Lenis initialized');
 }
 
 
@@ -133,6 +142,8 @@ function setActiveNavByPath() {
     }
 
     navLinks.forEach(link => {
+        // Remove any existing active class first
+        link.classList.remove('active');
 
         if (!link.href) return;
         
@@ -147,8 +158,16 @@ function setActiveNavByPath() {
         if (currentPath === linkPath) {
             isActive = true;
         }
-        // Home page special case
-        else if (currentPath === '/' && linkPath === '/') {
+        // Home page special case - check for root path or index.html
+        else if (currentPath === '/' && (linkPath === '/' || linkPath === '/index.html')) {
+            isActive = true;
+        }
+        // Mark index.html as active when on root path (no specific HTML page)
+        else if ((currentPath === '/' || currentPath === '') && linkPath.endsWith('/index.html')) {
+            isActive = true;
+        }
+        // Check if link points to index.html and current path is root
+        else if (linkPath.includes('index.html') && (currentPath === '/' || currentPath === '')) {
             isActive = true;
         }
         // Partial match - current path starts with link path (for parent pages)
@@ -168,61 +187,6 @@ const close = document.getElementById('con-close');
 
 
 
-/* 
-
-SPLINE 3D CANVAS LOAD
-
-*/
-
-// Track canvas loading to prevent conflicts
-let canvasesLoaded = 0;
-const totalCanvases = 2;
-
-function onCanvasLoaded() {
-  canvasesLoaded++;
-  console.log(`Canvas ${canvasesLoaded}/${totalCanvases} loaded`);
-  
-  if (canvasesLoaded >= totalCanvases) {
-    // All Unicorn Studio canvases loaded, now safe to init Lenis
-    setTimeout(() => {
-      console.log('All canvases loaded, initializing Lenis...');
-      initLenis();
-    }, 500); // Small delay to ensure everything is settled
-  }
-}
-
-// Canvas loading with proper sequencing
-const canvas = document.querySelector('#canvas3d') || document.createElement('canvas');
-canvas.id = 'canvas3d';
-// Add data attribute to prevent Lenis from interfering
-canvas.setAttribute('data-lenis-prevent', '');
-
-const app = new Application(canvas);
-app.load('/scene.splinecode')
-  .then(() => {
-    console.log('Main canvas loaded successfully');
-    onCanvasLoaded();
-  })
-  .catch((error) => {
-    console.error('Error loading main canvas:', error);
-    onCanvasLoaded(); // Continue even if there's an error
-  });
-
-const canvas_contact = document.querySelector('#canvas3d_contact') || document.createElement('canvas');
-canvas_contact.id = 'canvas3d_contact';
-// Add data attribute to prevent Lenis from interfering
-canvas_contact.setAttribute('data-lenis-prevent', '');
-
-const app_contact = new Application(canvas_contact);
-app_contact.load('/scene_contact.splinecode')
-  .then(() => {
-    console.log('Contact canvas loaded successfully');
-    onCanvasLoaded();
-  })
-  .catch((error) => {
-    console.error('Error loading contact canvas:', error);
-    onCanvasLoaded(); // Continue even if there's an error
-  });
 
 
 
@@ -255,12 +219,11 @@ if (menuButton && nav && close) {
 
       // SET INITIAL STATE OF SPANS IMMEDIATELY
       gsap.set(nav.querySelectorAll('a span'), {
-        opacity: 0,
-        y: '150%'
+       y: '250%'
       });
       
       gsap.fromTo(nav, 
-        { opacity: 0, y: '-10%' }, 
+        { y: '-10%' }, 
         { 
           duration: 0.5, 
           opacity: 1, 
@@ -270,12 +233,10 @@ if (menuButton && nav && close) {
             // Animate all spans inside the nav links after nav animation completes
             gsap.fromTo(nav.querySelectorAll('a span'),
               {
-                opacity: 0,
-                y: '100%'
+                y: '250%'
               },
               {
                 duration: 0.6,
-                opacity: 1,
                 y: '0%',
                 stagger: 0.1, // Stagger each span by 0.1 seconds
                 ease: 'back.out(1.2)'
@@ -293,15 +254,14 @@ if (menuButton && nav && close) {
     // Reverse the span animations first
     gsap.to(nav.querySelectorAll('a span'), {
       duration: 0.3,
-      opacity: 0,
-      y: '100%',
+      y: '250%',
       stagger: 0.05,
       ease: 'power4.in',
       onComplete: () => {
         // Then close the nav
         gsap.to(nav, { 
-          opacity: 0, 
           duration: 0.5, 
+          opacity: 0,
           y: '-10%', 
           ease: 'power4.out', 
           onComplete: () => {
@@ -317,22 +277,92 @@ if (menuButton && nav && close) {
 // Run when page loads
 document.addEventListener('DOMContentLoaded', () => {
   setActiveNavByPath();
+  initLenis();
+  
+  // Initialize animations after a short delay to ensure DOM is ready
+  setTimeout(() => {
+    initParallax();
+    initFadeIn();
+  }, 100);
 });
 
-flickerOnLoad(document.querySelector('#con-floater'), 2);
+// flickerOnLoad(document.querySelector('#con-floater'), 2);
 
-// Fallback: Initialize Lenis after 3 seconds if canvases haven't loaded
-setTimeout(() => {
-  if (!lenis) {
-    console.log('Fallback: Initializing Lenis due to timeout');
-    initLenis();
-  }
-}, 3000);
     
 
 
 
+// GSAP ScrollTrigger Parallax for all elements with 'parallax' class
+function initParallax() {
+  const parallaxSections = document.querySelectorAll('.parallax');
+  
+  parallaxSections.forEach((section) => {
+    const backgrounds = section.querySelectorAll('.parallax-target');
+    
+    backgrounds.forEach((bg, index) => {
+      // Get speed from rel attribute, or use default calculation
+      const relAttribute = bg.getAttribute('rel');
+      let speed;
+      
+      if (relAttribute && !isNaN(parseFloat(relAttribute))) {
+        // Use custom speed from rel attribute
+        speed = parseFloat(relAttribute);
+      } else {
+        // Fallback to index-based calculation
+        speed = 1.9 + (index * 0.2); // 1.9, 2.1, 2.3, etc.
+      }
+      
+      gsap.fromTo(bg, {
+        y: 100 * speed
+      }, {
+        y: -100 * speed,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1, // Smooth scrubbing
+          invalidateOnRefresh: true
+        }
+      });
+    });
+  });
+}
 
+// GSAP ScrollTrigger Fade In for all elements with 'fade-in' class
+function initFadeIn() {
+  const fadeElements = document.querySelectorAll('.fade-in');
+  
+  fadeElements.forEach((element, index) => {
+    // Staggered delay for multiple elements
+    const delay = index * 0.1; // 0, 0.1, 0.2, etc seconds
+    // gsap set fade in 
+    gsap.set(element, {
+      opacity: 0,
+      y: 10
+    });
+
+
+
+    gsap.fromTo(element, {
+      opacity: 0,
+      y: 10 // Start 50px below final position
+    }, {
+      opacity: 1,
+      y: 0,
+      duration: 1.8,
+      delay: delay,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: element,
+        start: "top 80%", // Trigger when element is 80% down the viewport
+        end: "bottom 20%", // End when element is 20% from bottom
+        toggleActions: "play none none reverse", // Play on enter, reverse on leave
+        invalidateOnRefresh: true
+      }
+    });
+  });
+}
 
 
 
